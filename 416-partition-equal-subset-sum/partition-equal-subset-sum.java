@@ -1,25 +1,28 @@
 class Solution {
-    public boolean canPartition(int[] arr) {
+    public boolean canPartition(int[] nums) {
         int sum = 0;
-        for(int i=0;i<arr.length;i++) sum+= arr[i];
+        for(int i=0;i<nums.length;i++) {
+            sum += nums[i];
+        }
         if(sum%2 != 0) return false;
-        int K = sum/2;
-        boolean[] prev = new boolean[K+1];
-        prev[0] = true;
-        if (arr[0] <= K) {
-            prev[arr[0]] = true;
+        int n = nums.length;
+        int target = sum/2;
+        boolean[][] dp = new boolean[n+1][target + 1];
+        for(int i=0;i<=n;i++) {
+            dp[i][0] = true;
         }
-        for(int i=1;i<arr.length;i++) {
-            boolean[] curr = new boolean[K+1];
-            curr[0] = true;
-            for(int target=1;target<=K;target++) {
-                boolean notTake = prev[target];
-                boolean take = false;
-                if(target >= arr[i]) take = prev[target-arr[i]];
-                curr[target] = take | notTake;
+        for(int i=1;i<=target;i++) {
+            dp[0][i] = false;
+        }
+        for(int index = 1;index<=n;index++) {
+            for(int weight = 1;weight<=target;weight++) {
+                if(weight < nums[index-1]) {
+                    dp[index][weight] = dp[index-1][weight];
+                } else {
+                    dp[index][weight] =  dp[index - 1][weight - nums[index - 1]] || dp[index-1][weight];
+                }
             }
-            prev = curr;
         }
-        return prev[K];
+        return dp[n][target];
     }
 }
