@@ -5,8 +5,8 @@ class Solution {
         for(int i=1;i<=n;i++) {
             set.add(i*i);
         }
-        for(int i=1;i<n;i++) {
-            for(int j=i+1;j<=n;j++) {
+        for(int i=1;i<=n;i++) {
+            for(int j=i;j<=n;j++) {
                 int sum = (i * i) + (j * j);
                 if(set.contains(sum)) count++;
             }
