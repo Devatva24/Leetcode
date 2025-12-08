@@ -1,16 +1,21 @@
 class Solution {
     public int countTriples(int n) {
         int count = 0;
-        HashSet<Integer> set = new HashSet<Integer>();
         for(int i=1;i<=n;i++) {
-            set.add(i*i);
-        }
-        for(int i=1;i<=n;i++) {
-            for(int j=i;j<=n;j++) {
-                int sum = (i * i) + (j * j);
-                if(set.contains(sum)) count++;
+            int target = i * i;
+            int low = 1;
+            int high = i-1;
+            while(low < high) {
+                int val = (low * low) + (high * high);
+                if(val == target) {
+                    count++;
+                    low++;
+                    high--;
+                }
+                else if(val < target) low+=1;
+                else high-=1;
             }
         }
-        return count*2;
+        return count * 2;
     }
 }
