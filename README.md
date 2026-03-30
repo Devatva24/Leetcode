@@ -1,4 +1,4 @@
-# 💻 LeetCode Solutions in Java  
+# 💻 LeetCode Solutions in Java
 
 <div align="center">
 
